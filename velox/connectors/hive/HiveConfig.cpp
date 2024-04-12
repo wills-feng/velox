@@ -105,6 +105,24 @@ std::string HiveConfig::s3IAMRoleSessionName() const {
   return config_->get(kS3IamRoleSessionName, std::string("velox-session"));
 }
 
+uint64_t HiveConfig::s3ConnectTimeout() const {
+  auto duration = facebook::velox::core::toDuration(
+      config_->get<std::string>(kS3ConnectTimeout, "5s"));
+  return std::chrono::duration_cast<std::chrono::milliseconds>(duration)
+      .count();
+}
+
+uint64_t HiveConfig::s3SocketTimeout() const {
+  auto duration = facebook::velox::core::toDuration(
+      config_->get<std::string>(kS3SocketTimeout, "5s"));
+  return std::chrono::duration_cast<std::chrono::milliseconds>(duration)
+      .count();
+}
+
+uint32_t HiveConfig::s3MaxConnections() const {
+  return config_->get(kS3MaxConnections, 500);
+}
+
 std::string HiveConfig::gcsEndpoint() const {
   return config_->get<std::string>(kGCSEndpoint, std::string(""));
 }

@@ -88,6 +88,15 @@ class HiveConfig {
   static constexpr const char* kS3IamRoleSessionName =
       "hive.s3.iam-role-session-name";
 
+  /// TCP connect timeout.
+  static constexpr const char* kS3ConnectTimeout = "hive.s3.connect-timeout";
+
+  /// TCP socket read timeout.
+  static constexpr const char* kS3SocketTimeout = "hive.s3.socket-timeout";
+
+  /// Maximum number of simultaneous open connections to S3.
+  static constexpr const char* kS3MaxConnections = "hive.s3.max-connections";
+
   /// The GCS storage endpoint server.
   static constexpr const char* kGCSEndpoint = "hive.gcs.endpoint";
 
@@ -208,6 +217,12 @@ class HiveConfig {
   std::optional<std::string> s3IAMRole() const;
 
   std::string s3IAMRoleSessionName() const;
+
+  uint64_t s3ConnectTimeout() const;
+
+  uint64_t s3SocketTimeout() const;
+
+  uint32_t s3MaxConnections() const;
 
   std::string gcsEndpoint() const;
 

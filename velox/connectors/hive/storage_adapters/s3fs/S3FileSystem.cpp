@@ -541,6 +541,10 @@ class S3FileSystem::Impl {
       clientConfig.scheme = Aws::Http::Scheme::HTTP;
     }
 
+    clientConfig.connectTimeoutMs = hiveConfig_->s3ConnectTimeout();
+    clientConfig.requestTimeoutMs = hiveConfig_->s3SocketTimeout();
+    clientConfig.maxConnections = hiveConfig_->s3MaxConnections();
+
     auto credentialsProvider = getCredentialsProvider();
 
     client_ = std::make_shared<Aws::S3::S3Client>(

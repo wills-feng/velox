@@ -253,4 +253,21 @@ TEST_F(S3FileSystemTest, writeFileAndRead) {
   // Verify the last chunk.
   ASSERT_EQ(readFile->pread(contentSize * 250'000, contentSize), dataContent);
 }
+
+TEST_F(S3FileSystemTest, connectionSettings) {
+  auto hiveConfig = minioServer_->hiveConfig(
+      {{"hive.s3.connect-timeout", "10s"},
+       {"hive.s3.socket-timeout", "500ms"},
+       {"hive.s3.max-connections", "400"}});
+  filesystems::S3FileSystem s3fs(hiveConfig);
+}
+
+TEST_F(S3FileSystemTest, invalidConnectionSettings) {
+  auto hiveConfig =
+      minioServer_->hiveConfig({{"hive.s3.connect-timeout", "400"}});
+  VELOX_ASSERT_THROW(filesystems::S3FileSystem(hiveConfig), "Invalid duration");
+
+  hiveConfig = minioServer_->hiveConfig({{"hive.s3.socket-timeout", "abc"}});
+  VELOX_ASSERT_THROW(filesystems::S3FileSystem(hiveConfig), "Invalid duration");
+}
 } // namespace facebook::velox
