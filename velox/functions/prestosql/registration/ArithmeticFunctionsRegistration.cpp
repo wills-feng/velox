@@ -189,6 +189,8 @@ void registerSimpleFunctions(const std::string& prefix) {
       Map<Varchar, double>>({prefix + "cosine_similarity"});
   registerFunction<WeibullCDFFunction, double, double, double, double>(
       {prefix + "weibull_cdf"});
+  registerFunction<InverseLaplaceCDFFunction, double, double, double, double>(
+      {prefix + "inverse_laplace_cdf"});
 }
 
 } // namespace

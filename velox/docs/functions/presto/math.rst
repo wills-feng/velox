@@ -319,6 +319,12 @@ Probability Functions: inverse_cdf
     probability (p): P(N < n). The a, b parameters must be positive real values (all of type DOUBLE).
     The probability p must lie on the interval [0, 1].
 
+.. function:: inverse_laplace_cdf(mean, scale, p) → double
+
+     Compute the inverse of the Laplace cdf with given mean and scale parameters for the
+     cumulative probability (p): P(N < n). The mean must be a real value and the
+     scale must be a positive real value (both of type DOUBLE).
+     The probability p must lie on the interval [0, 1].
 
 ====================================
 Statistical Functions
